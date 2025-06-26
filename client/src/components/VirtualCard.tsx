@@ -183,7 +183,7 @@ export default function VirtualCard() {
         </div>
 
         {/* Main Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-120px)] px-4">
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-120px)] px-4 pb-20">
           
           {/* Video Showcase */}
           <div className="max-w-2xl w-full mb-8 animate-fade-in">
