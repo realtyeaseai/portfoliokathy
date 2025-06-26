@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { UserPlus, Share2, Globe, Phone, MessageCircle, QrCode, Play, Volume2, Maximize } from "lucide-react";
-import profileImage from "@assets/image_1750954503843.png";
 
 export default function VirtualCard() {
   const [showQRModal, setShowQRModal] = useState(false);
@@ -93,20 +92,22 @@ export default function VirtualCard() {
             <div className="relative bg-gray-800 rounded-2xl overflow-hidden shadow-2xl">
               {/* Video Container */}
               <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center relative group">
-                <img
-                  src={profileImage}
-                  alt="Professional showcase"
-                  className="w-full h-full object-cover"
-                />
+                {/* Clean gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-gray-800 to-amber-900/20"></div>
                 
-                {/* Video overlay */}
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {/* Center play button */}
+                <div className="relative z-10 flex items-center justify-center">
                   <button
                     onClick={handleVideoPlay}
-                    className="w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-lg"
+                    className="w-20 h-20 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-2xl group-hover:shadow-red-500/25"
                   >
-                    <Play className="text-white w-6 h-6 ml-1" />
+                    <Play className="text-white w-8 h-8 ml-1" />
                   </button>
+                </div>
+                
+                {/* Subtle overlay text */}
+                <div className="absolute bottom-4 left-4 right-4 text-center">
+                  <p className="text-white/80 text-sm font-medium">Professional Introduction Video</p>
                 </div>
               </div>
 
@@ -134,7 +135,18 @@ export default function VirtualCard() {
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">John Anderson</h1>
             <p className="text-red-400 font-medium text-lg mb-1">Founder & CEO</p>
-            <p className="text-gray-300">Digital Innovations Inc.</p>
+            <p className="text-gray-300 mb-4">Digital Innovations Inc.</p>
+            
+            {/* Service Description */}
+            <div className="bg-gray-800/30 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto border border-gray-700/50">
+              <p className="text-gray-300 text-lg leading-relaxed">
+                <span className="text-white font-semibold">We provide Virtual Assistant</span> for any work you require - 
+                whether it's VA for <span className="text-red-400">Web Development</span>, 
+                <span className="text-blue-400"> Social Media</span>, 
+                <span className="text-green-400"> Property Management</span>, or 
+                <span className="text-amber-400"> Service Providers</span>
+              </p>
+            </div>
           </div>
 
           {/* Quick Actions */}
