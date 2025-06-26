@@ -1,8 +1,8 @@
-# Professional Portfolio Application
+# Virtual Business Card Application
 
 ## Overview
 
-This is a full-stack web application built with React/TypeScript frontend and Express.js backend. The application serves as a professional portfolio with virtual business card functionality, featuring modern UI components and a clean, responsive design.
+This is a single-page virtual business card application built with React/TypeScript frontend and Express.js backend. The application serves as a minimal, elegant digital business card for the founder/CEO, featuring a centered video showcase and interactive contact elements inspired by modern virtual card designs.
 
 ## System Architecture
 

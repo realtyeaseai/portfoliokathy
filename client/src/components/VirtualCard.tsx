@@ -1,148 +1,187 @@
 import { useState } from "react";
-import { UserPlus, Share2, Globe, Phone, MessageCircle, QrCode, Smartphone, Share, TrendingUp } from "lucide-react";
+import { UserPlus, Share2, Globe, Phone, MessageCircle, QrCode, Play, Volume2, Maximize } from "lucide-react";
+import profileImage from "@assets/image_1750954503843.png";
 
 export default function VirtualCard() {
   const [showQRModal, setShowQRModal] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const handleAddContact = () => {
+    // In a real app, this would trigger the device's contact app
     console.log("Add to contacts functionality");
   };
 
   const handleShare = () => {
-    console.log("Share card functionality");
+    if (navigator.share) {
+      navigator.share({
+        title: 'John Anderson - Virtual Business Card',
+        text: 'Check out my virtual business card',
+        url: window.location.href,
+      });
+    } else {
+      // Fallback for browsers that don't support Web Share API
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
   };
 
   const handleQuickAction = (action: string) => {
-    console.log(`Quick action: ${action}`);
+    switch (action) {
+      case 'website':
+        window.open('https://johnanderson.com', '_blank');
+        break;
+      case 'phone':
+        window.location.href = 'tel:+15551234567';
+        break;
+      case 'message':
+        window.location.href = 'sms:+15551234567';
+        break;
+      default:
+        console.log(`Quick action: ${action}`);
+    }
+  };
+
+  const handleVideoPlay = () => {
+    setIsVideoPlaying(!isVideoPlaying);
   };
 
   return (
     <>
-      <section id="about" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-slide-up">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Virtual Business <span className="text-red-600">Card</span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Experience the future of professional networking with interactive digital business cards
-            </p>
-          </div>
-
-          {/* Interactive Business Card */}
-          <div className="max-w-md mx-auto mb-16">
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-500 relative overflow-hidden">
-              {/* Card Background Pattern */}
-              <div className="absolute inset-0 opacity-10">
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(circle at 20% 80%, #DC2626 0%, transparent 50%), radial-gradient(circle at 80% 20%, #F59E0B 0%, transparent 50%)",
-                  }}
-                ></div>
-              </div>
-
-              <div className="relative z-10">
-                {/* Profile Section */}
-                <div className="text-center mb-6">
-                  <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=150&h=150"
-                    alt="Professional headshot"
-                    className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-red-600 shadow-lg"
-                  />
-                  <h3 className="text-2xl font-bold text-white">John Anderson</h3>
-                  <p className="text-red-400 font-medium">Senior Creative Director</p>
-                  <p className="text-gray-300 text-sm">Digital Innovations Inc.</p>
-                </div>
-
-                {/* Contact Actions */}
-                <div className="grid grid-cols-2 gap-3 mb-6">
-                  <button
-                    onClick={handleAddContact}
-                    className="flex items-center justify-center space-x-2 bg-red-600 hover:bg-red-700 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-                  >
-                    <UserPlus className="w-5 h-5" />
-                    <span className="text-sm font-medium">Add Contact</span>
-                  </button>
-                  <button
-                    onClick={handleShare}
-                    className="flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-                  >
-                    <Share2 className="w-5 h-5" />
-                    <span className="text-sm font-medium">Share</span>
-                  </button>
-                </div>
-
-                {/* Quick Actions Bar */}
-                <div className="grid grid-cols-4 gap-2">
-                  <button
-                    onClick={() => handleQuickAction("website")}
-                    className="flex flex-col items-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all duration-300 group"
-                  >
-                    <Globe className="text-amber-500 w-6 h-6 mb-1 group-hover:scale-110 transition-transform duration-300" />
-                    <span className="text-xs text-gray-300">Website</span>
-                  </button>
-                  <button
-                    onClick={() => handleQuickAction("phone")}
-                    className="flex flex-col items-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all duration-300 group"
-                  >
-                    <Phone className="text-green-500 w-6 h-6 mb-1 group-hover:scale-110 transition-transform duration-300" />
-                    <span className="text-xs text-gray-300">Call</span>
-                  </button>
-                  <button
-                    onClick={() => handleQuickAction("message")}
-                    className="flex flex-col items-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all duration-300 group"
-                  >
-                    <MessageCircle className="text-blue-500 w-6 h-6 mb-1 group-hover:scale-110 transition-transform duration-300" />
-                    <span className="text-xs text-gray-300">Message</span>
-                  </button>
-                  <button
-                    onClick={() => setShowQRModal(true)}
-                    className="flex flex-col items-center p-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-all duration-300 group"
-                  >
-                    <QrCode className="text-purple-500 w-6 h-6 mb-1 group-hover:scale-110 transition-transform duration-300" />
-                    <span className="text-xs text-gray-300">QR Code</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Features Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Smartphone className="text-white w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Mobile Optimized</h3>
-              <p className="text-gray-600">
-                Seamless experience across all devices with responsive design and touch interactions
-              </p>
-            </div>
-
-            <div className="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Share className="text-white w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Instant Sharing</h3>
-              <p className="text-gray-600">
-                Share your professional information instantly via QR codes, links, or direct contact integration
-              </p>
-            </div>
-
-            <div className="text-center p-8 bg-gray-50 rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <TrendingUp className="text-white w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Analytics</h3>
-              <p className="text-gray-600">
-                Track engagement and interactions with detailed analytics and insights
-              </p>
-            </div>
-          </div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 25% 25%, #DC2626 0%, transparent 50%), radial-gradient(circle at 75% 75%, #F59E0B 0%, transparent 50%)",
+            }}
+          ></div>
         </div>
-      </section>
+
+        {/* Top Action Bar */}
+        <div className="relative z-10 flex justify-between items-center p-6">
+          <button
+            onClick={handleAddContact}
+            className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
+          >
+            <UserPlus className="w-4 h-4" />
+            <span className="text-sm font-medium">Add to Contact</span>
+          </button>
+          
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-xs font-bold">D</span>
+            </div>
+            <span className="text-white text-sm font-medium">DESIRED</span>
+          </div>
+
+          <button
+            onClick={handleShare}
+            className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
+          >
+            <Share2 className="w-4 h-4" />
+            <span className="text-sm font-medium">Share</span>
+          </button>
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-120px)] px-4">
+          
+          {/* Video Showcase */}
+          <div className="max-w-2xl w-full mb-8">
+            <div className="relative bg-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+              {/* Video Container */}
+              <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center relative group">
+                <img
+                  src={profileImage}
+                  alt="Professional showcase"
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Video overlay */}
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button
+                    onClick={handleVideoPlay}
+                    className="w-16 h-16 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-lg"
+                  >
+                    <Play className="text-white w-6 h-6 ml-1" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Video Controls Bar */}
+              <div className="bg-gray-900/90 px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                    <span className="text-gray-300 text-sm">Professional Showcase</span>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <button className="text-gray-400 hover:text-white transition-colors duration-300">
+                    <Volume2 className="w-4 h-4" />
+                  </button>
+                  <button className="text-gray-400 hover:text-white transition-colors duration-300">
+                    <Maximize className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Profile Info */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">John Anderson</h1>
+            <p className="text-red-400 font-medium text-lg mb-1">Founder & CEO</p>
+            <p className="text-gray-300">Digital Innovations Inc.</p>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="grid grid-cols-4 gap-4 mb-8">
+            <button
+              onClick={() => handleQuickAction("website")}
+              className="flex flex-col items-center p-4 bg-gray-800/50 hover:bg-gray-700/50 rounded-xl transition-all duration-300 group backdrop-blur-sm"
+            >
+              <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-amber-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+                <Globe className="text-white w-6 h-6" />
+              </div>
+              <span className="text-xs text-gray-300 font-medium">Website</span>
+            </button>
+            
+            <button
+              onClick={() => handleQuickAction("phone")}
+              className="flex flex-col items-center p-4 bg-gray-800/50 hover:bg-gray-700/50 rounded-xl transition-all duration-300 group backdrop-blur-sm"
+            >
+              <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+                <Phone className="text-white w-6 h-6" />
+              </div>
+              <span className="text-xs text-gray-300 font-medium">Business Phone</span>
+            </button>
+            
+            <button
+              onClick={() => handleQuickAction("message")}
+              className="flex flex-col items-center p-4 bg-gray-800/50 hover:bg-gray-700/50 rounded-xl transition-all duration-300 group backdrop-blur-sm"
+            >
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+                <MessageCircle className="text-white w-6 h-6" />
+              </div>
+              <span className="text-xs text-gray-300 font-medium">Message me</span>
+            </button>
+            
+            <button
+              onClick={() => setShowQRModal(true)}
+              className="flex flex-col items-center p-4 bg-gray-800/50 hover:bg-gray-700/50 rounded-xl transition-all duration-300 group backdrop-blur-sm"
+            >
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+                <QrCode className="text-white w-6 h-6" />
+              </div>
+              <span className="text-xs text-gray-300 font-medium">QR Code</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
 
       {/* QR Code Modal */}
       {showQRModal && (
