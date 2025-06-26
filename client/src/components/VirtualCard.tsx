@@ -122,7 +122,7 @@ export default function VirtualCard() {
           <div className="flex items-center space-x-3">
             <button
               onClick={handleAddContact}
-              className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 animate-pulse hover:animate-none"
+              className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
             >
               <UserPlus className="w-4 h-4" />
               <span className="text-sm font-medium">Add to Contact</span>
@@ -197,7 +197,7 @@ export default function VirtualCard() {
                 <div className="relative z-10 flex items-center justify-center">
                   <button
                     onClick={handleVideoPlay}
-                    className="w-20 h-20 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-2xl group-hover:shadow-red-500/25 animate-pulse hover:animate-none"
+                    className="w-20 h-20 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 shadow-2xl group-hover:shadow-red-500/25"
                   >
                     <Play className="text-white w-8 h-8 ml-1" />
                   </button>
