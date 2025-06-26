@@ -10,7 +10,7 @@ export default function VirtualCard() {
   const [showTestimonials, setShowTestimonials] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
   const [showServices, setShowServices] = useState(false);
-  const [showLeadForm, setShowLeadForm] = useState(false);
+
   const [currentLanguage, setCurrentLanguage] = useState('EN');
   const [isOnline, setIsOnline] = useState(true);
   const [cardViews, setCardViews] = useState(1247);
@@ -345,13 +345,7 @@ export default function VirtualCard() {
               <span className="text-xs font-medium">FAQ</span>
             </button>
             
-            <button
-              onClick={() => setShowLeadForm(true)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-gray-300' : 'bg-gray-200 hover:bg-gray-300 text-gray-700'}`}
-            >
-              <Users className="w-3 h-3" />
-              <span className="text-xs font-medium">Contact Form</span>
-            </button>
+
             
             <button
               onClick={() => window.open('#', '_blank')}
@@ -587,47 +581,7 @@ export default function VirtualCard() {
         </div>
       )}
 
-      {/* Lead Capture Form Modal */}
-      {showLeadForm && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className={`rounded-2xl p-8 max-w-md w-full ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
-            <div className="flex justify-between items-center mb-6">
-              <h3 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Get in Touch</h3>
-              <button onClick={() => setShowLeadForm(false)} className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-800'}`}>
-                <X className="w-6 h-6" />
-              </button>
-            </div>
 
-            <form className="space-y-4">
-              <div>
-                <input type="text" placeholder="Your Name" className={`w-full p-3 rounded-lg border ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'}`} />
-              </div>
-              
-              <div>
-                <input type="email" placeholder="Email Address" className={`w-full p-3 rounded-lg border ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'}`} />
-              </div>
-              
-              <div>
-                <select className={`w-full p-3 rounded-lg border ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'}`}>
-                  <option>Service Needed</option>
-                  <option>Web Development VA</option>
-                  <option>Social Media VA</option>
-                  <option>Property Management VA</option>
-                  <option>General Service VA</option>
-                </select>
-              </div>
-              
-              <div>
-                <textarea placeholder="Project Details" rows={4} className={`w-full p-3 rounded-lg border resize-none ${darkMode ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'}`}></textarea>
-              </div>
-              
-              <button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-colors duration-300">
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </>
   );
 }
