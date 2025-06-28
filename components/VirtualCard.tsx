@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   UserPlus,
   Share2,
@@ -27,6 +27,8 @@ import {
   CheckCircle,
   X,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function VirtualCard() {
   const [showQRModal, setShowQRModal] = useState(false);
@@ -43,29 +45,15 @@ export default function VirtualCard() {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   const queryClient = useQueryClient();
+const [cardViews, setCardViews] = useState(0);
 
-  // Query to get current views
-  const { data: viewsData } = useQuery({
-    queryKey: ['/api/views'],
-    queryFn: async () => {
-      const res = await fetch('/api/views');
-      return res.json();
-    },
-    refetchOnWindowFocus: false,
-  });
+useEffect(() => {
+  const currentViews = parseInt(localStorage.getItem("virtualCardViews") || "0", 10);
+  const newViews = currentViews + 1;
+  localStorage.setItem("virtualCardViews", newViews.toString());
+  setCardViews(newViews);
+}, []);
 
-  // Mutation to increment views
-  const incrementViewsMutation = useMutation({
-    mutationFn: async () => {
-      const res = await fetch('/api/views/increment', { method: 'POST' });
-      return res.json();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/views'] });
-    },
-  });
-
-  const cardViews = (viewsData as { totalViews: number })?.totalViews || 0;
 
   // Sample data
   const testimonials = [
@@ -151,10 +139,6 @@ export default function VirtualCard() {
     },
   ];
 
-  useEffect(() => {
-    // Increment views when component mounts (page visit)
-    incrementViewsMutation.mutate();
-  }, []);
 
   const handleAddContact = () => {
     // In a real app, this would trigger the device's contact app
@@ -175,21 +159,8 @@ export default function VirtualCard() {
     }
   };
 
-  const handleQuickAction = (action: string) => {
-    switch (action) {
-      case "website":
-        window.open("https://realtyeaseai.com/", "_blank");
-        break;
-      case "phone":
-        window.location.href = "tel:+15551234567";
-        break;
-      case "message":
-        window.location.href = "sms:+15551234567";
-        break;
-      default:
-        console.log(`Quick action: ${action}`);
-    }
-  };
+
+
 
   const handleVideoPlay = () => {
     setIsVideoPlaying(!isVideoPlaying);
@@ -256,9 +227,11 @@ export default function VirtualCard() {
 
           {/* Center - Logo and Company Name */}
           <div className="flex items-center">
-            <img 
+            <Image 
               src="https://realtyeaseai.com/favicon.ico" 
               alt="RealtyEaseAI Logo" 
+              width={300}
+              height={300}
               className="w-10 h-10 mr-3"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
@@ -460,36 +433,45 @@ export default function VirtualCard() {
           </div>
 
           {/* Quick Actions */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8 animate-slide-up">
-            <button
-              onClick={() => handleQuickAction("website")}
-              className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <Globe className="w-5 h-5" />
-              <span className="font-medium">Visit Website</span>
-            </button>
-            <button
-              onClick={() => handleQuickAction("phone")}
-              className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <Phone className="w-5 h-5" />
-              <span className="font-medium">Call Now</span>
-            </button>
-            <button
-              onClick={() => handleQuickAction("message")}
-              className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <MessageCircle className="w-5 h-5" />
-              <span className="font-medium">Message</span>
-            </button>
-            <button
-              onClick={() => setShowQRModal(true)}
-              className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              <QrCode className="w-5 h-5" />
-              <span className="font-medium">QR Code</span>
-            </button>
-          </div>
+       <div className="flex flex-wrap justify-center gap-4 mb-8 animate-slide-up">
+  {/* Visit Website */}
+  <Link
+    href="https://realtyeaseai.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    passHref
+  >
+    <div className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer">
+      <Globe className="w-5 h-5" />
+      <span className="font-medium">Visit Website</span>
+    </div>
+  </Link>
+
+  {/* Call Now */}
+  <Link href="tel:+15551234567" passHref>
+    <div className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer">
+      <Phone className="w-5 h-5" />
+      <span className="font-medium">Call Now</span>
+    </div>
+  </Link>
+
+  {/* Message */}
+  <Link href="sms:+15551234567" passHref>
+    <div className="flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg cursor-pointer">
+      <MessageCircle className="w-5 h-5" />
+      <span className="font-medium">Message</span>
+    </div>
+  </Link>
+
+  {/* QR Code Modal */}
+  <button
+    onClick={() => setShowQRModal(true)}
+    className="flex items-center space-x-2 bg-orange-600 hover:bg-gray-700 text-white px-6 py-3 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
+  >
+    <QrCode className="w-5 h-5" />
+    <span className="font-medium">QR Code</span>
+  </button>
+</div>
 
           {/* Enhanced Feature Tabs */}
           <div className="max-w-4xl w-full">
@@ -519,95 +501,132 @@ export default function VirtualCard() {
                 <Calendar className="w-4 h-4 inline mr-2" />
                 <span className="font-medium">Schedule</span>
               </button>
-              <button
+              {/* <button
                 onClick={() => setShowCalculator(!showCalculator)}
                 className={`px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${showCalculator ? "bg-blue-600 text-white" : darkMode ? "bg-gray-700 text-gray-300 hover:bg-gray-600" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
               >
                 <Calculator className="w-4 h-4 inline mr-2" />
                 <span className="font-medium">ROI Calculator</span>
-              </button>
+              </button> */}
             </div>
 
             {/* Services Panel */}
-            {showServices && (
-              <div className={`backdrop-blur-sm rounded-xl p-6 mb-6 border transition-all duration-500 ${darkMode ? "bg-gray-800/30 border-gray-700/50" : "bg-white/80 border-gray-200/50"}`}>
-                <h3 className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                  Our Services & Pricing
-                </h3>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {services.map((service, index) => (
-                    <div key={index} className={`p-4 rounded-lg border ${darkMode ? "bg-gray-700/30 border-gray-600" : "bg-white/60 border-gray-300"}`}>
-                      <div className="flex justify-between items-start mb-3">
-                        <h4 className={`font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}>
-                          {service.name}
-                        </h4>
-                        <span className="text-green-400 font-bold">{service.price}</span>
-                      </div>
-                      <ul className="space-y-1">
-                        {service.features.map((feature, idx) => (
-                          <li key={idx} className={`text-sm flex items-center ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                            <CheckCircle className="w-3 h-3 text-green-400 mr-2" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+           {showServices && (
+  <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className={`max-w-3xl w-full rounded-2xl p-6 relative ${darkMode ? "bg-gray-800" : "bg-white"}`}>
+      <button
+        onClick={() => setShowServices(false)}
+        className={`absolute top-4 right-4 p-2 rounded-full ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"}`}
+      >
+        <X className={`w-5 h-5 ${darkMode ? "text-white" : "text-gray-900"}`} />
+      </button>
+      <h3 className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
+        Our Services & Pricing
+      </h3>
+      <div className="grid md:grid-cols-2 gap-4">
+        {services.map((service, index) => (
+          <div key={index} className={`p-4 rounded-lg border ${darkMode ? "bg-gray-700/30 border-gray-600" : "bg-white/60 border-gray-300"}`}>
+            <div className="flex justify-between items-start mb-3">
+              <h4 className={`font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}>
+                {service.name}
+              </h4>
+              <span className="text-green-400 font-bold">{service.price}</span>
+            </div>
+            <ul className="space-y-1">
+              {service.features.map((feature, idx) => (
+                <li key={idx} className={`text-sm flex items-center ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+                  <CheckCircle className="w-3 h-3 text-green-400 mr-2" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
 
             {/* Testimonials Panel */}
-            {showTestimonials && (
-              <div className={`backdrop-blur-sm rounded-xl p-6 mb-6 border transition-all duration-500 ${darkMode ? "bg-gray-800/30 border-gray-700/50" : "bg-white/80 border-gray-200/50"}`}>
-                <h3 className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                  What Our Clients Say
-                </h3>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {testimonials.map((testimonial, index) => (
-                    <div key={index} className={`p-4 rounded-lg border ${darkMode ? "bg-gray-700/30 border-gray-600" : "bg-white/60 border-gray-300"}`}>
-                      <div className="flex items-center mb-2">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                        ))}
-                      </div>
-                      <p className={`text-sm mb-3 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                        "{testimonial.text}"
-                      </p>
-                      <div>
-                        <p className={`font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}>
-                          {testimonial.name}
-                        </p>
-                        <p className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                          {testimonial.role}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+          {showTestimonials && (
+  <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className={`max-w-4xl w-full rounded-2xl p-6 relative ${darkMode ? "bg-gray-800" : "bg-white"}`}>
+      {/* Close Button */}
+      <button
+        onClick={() => setShowTestimonials(false)}
+        className={`absolute top-4 right-4 p-2 rounded-full ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"}`}
+      >
+        <X className={`w-5 h-5 ${darkMode ? "text-white" : "text-gray-900"}`} />
+      </button>
+
+      <h3 className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
+        What Our Clients Say
+      </h3>
+
+      <div className="grid md:grid-cols-3 gap-4 max-h-[70vh] overflow-y-auto pr-2">
+        {testimonials.map((testimonial, index) => (
+          <div key={index} className={`p-4 rounded-lg border ${darkMode ? "bg-gray-700/30 border-gray-600" : "bg-white/60 border-gray-300"}`}>
+            <div className="flex items-center mb-2">
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+              ))}
+            </div>
+            <p className={`text-sm mb-3 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+              "{testimonial.text}"
+            </p>
+            <div>
+              <p className={`font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}>
+                {testimonial.name}
+              </p>
+              <p className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                {testimonial.role}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
 
             {/* FAQ Panel */}
-            {showFAQ && (
-              <div className={`backdrop-blur-sm rounded-xl p-6 mb-6 border transition-all duration-500 ${darkMode ? "bg-gray-800/30 border-gray-700/50" : "bg-white/80 border-gray-200/50"}`}>
-                <h3 className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                  Frequently Asked Questions
-                </h3>
-                <div className="space-y-4">
-                  {faqs.map((faq, index) => (
-                    <div key={index} className={`p-4 rounded-lg border ${darkMode ? "bg-gray-700/30 border-gray-600" : "bg-white/60 border-gray-300"}`}>
-                      <h4 className={`font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                        {faq.q}
-                      </h4>
-                      <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                        {faq.a}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+          {showFAQ && (
+  <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className={`max-w-2xl w-full rounded-2xl p-6 relative ${darkMode ? "bg-gray-800" : "bg-white"}`}>
+      {/* Close Button */}
+      <button
+        onClick={() => setShowFAQ(false)}
+        className={`absolute top-4 right-4 p-2 rounded-full ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"}`}
+      >
+        <X className={`w-5 h-5 ${darkMode ? "text-white" : "text-gray-900"}`} />
+      </button>
+
+      {/* Title */}
+      <h3 className={`text-xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
+        Frequently Asked Questions
+      </h3>
+
+      {/* FAQ List */}
+      <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+        {faqs.map((faq, index) => (
+          <div
+            key={index}
+            className={`p-4 rounded-lg border transition-all ${darkMode ? "bg-gray-700/30 border-gray-600" : "bg-white/60 border-gray-300"}`}
+          >
+            <h4 className={`font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>
+              {faq.q}
+            </h4>
+            <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+              {faq.a}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
 
             {/* Calendar Panel */}
             {showCalendar && (
@@ -755,7 +774,16 @@ export default function VirtualCard() {
             </div>
             <div className="text-center">
               <div className="bg-white p-4 rounded-lg mb-4 inline-block">
-                <QrCode className="w-32 h-32 text-gray-800" />
+               <div className="bg-white p-6 rounded-lg shadow-lg inline-block">
+  <Image
+    src="/your-qr.png"
+    alt="QR Code"
+    width={150}
+    height={150}
+    className="mx-auto"
+  />
+</div>
+
               </div>
               <p className={`text-sm ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
                 Scan to visit our virtual business card

@@ -2,11 +2,17 @@
 const nextConfig = {
   serverExternalPackages: ['@neondatabase/serverless'],
   images: {
-    domains: ['realtyeaseai.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'realtyeaseai.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
   },
-  env: {
-    DATABASE_URL: process.env.DATABASE_URL,
-  },
-}
+};
 
-export default nextConfig
+export default nextConfig;
