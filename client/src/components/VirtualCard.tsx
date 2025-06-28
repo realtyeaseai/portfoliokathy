@@ -224,34 +224,32 @@ export default function VirtualCard() {
           ></div>
         </div>
 
-        {/* Top Header with Logo and Company Name */}
-        <div className="relative z-10 flex justify-center items-center pt-6 pb-4">
-          <div className="flex items-center">
-            <img 
-              src="https://realtyeaseai.com/favicon.ico" 
-              alt="RealtyEaseAI Logo" 
-              className="w-12 h-12 mr-3"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-              }}
-            />
-            <div className="text-center">
-              <h1
-                className={`text-2xl md:text-3xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
-              >
-                RealtyEaseAI
-              </h1>
-              <p className="text-red-400 font-medium text-sm">
-                AI-Powered Real Estate Solutions
-              </p>
+        {/* Top Action Bar with Logo */}
+        <div className="relative z-10 flex justify-between items-center p-6">
+          <div className="flex items-center space-x-4">
+            {/* Logo and Company Name */}
+            <div className="flex items-center">
+              <img 
+                src="https://realtyeaseai.com/favicon.ico" 
+                alt="RealtyEaseAI Logo" 
+                className="w-10 h-10 mr-2"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+              <div>
+                <h1
+                  className={`text-lg md:text-xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
+                >
+                  RealtyEaseAI
+                </h1>
+                <p className="text-red-400 font-medium text-xs">
+                  AI-Powered Real Estate Solutions
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Action Bar */}
-        <div className="relative z-10 flex justify-between items-center px-6 pb-4">
-          <div className="flex items-center space-x-3">
             <button
               onClick={handleAddContact}
               className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
