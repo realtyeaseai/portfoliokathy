@@ -306,7 +306,7 @@ export default function VirtualCard() {
         </div>
 
         {/* Card Views Counter */}
-        <div className="absolute top-20 right-6 z-10">
+        <div className="absolute top-32 right-6 z-10">
           <div
             className={`px-3 py-1 rounded-full ${darkMode ? "bg-gray-800/50 text-gray-300" : "bg-white/80 text-gray-700"} backdrop-blur-sm`}
           >
