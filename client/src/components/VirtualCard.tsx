@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 import {
   UserPlus,
   Share2,
@@ -45,18 +45,18 @@ export default function VirtualCard() {
 
   // Query to get current views
   const { data: viewsData } = useQuery({
-    queryKey: ['/api/views'],
+    queryKey: ["/api/views"],
     refetchOnWindowFocus: false,
   });
 
   // Mutation to increment views
   const incrementViewsMutation = useMutation({
     mutationFn: async () => {
-      const res = await apiRequest('POST', '/api/views/increment');
+      const res = await apiRequest("POST", "/api/views/increment");
       return res.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/views'] });
+      queryClient.invalidateQueries({ queryKey: ["/api/views"] });
     },
   });
 
@@ -224,8 +224,33 @@ export default function VirtualCard() {
           ></div>
         </div>
 
-        {/* Top Action Bar */}
-        <div className="relative z-10 flex justify-between items-center p-6">
+        {/* Top Header with Logo and Company Name */}
+        <div className="relative z-10 flex justify-center items-center pt-6 pb-4">
+          <div className="flex items-center">
+            <img 
+              src="https://realtyeaseai.com/favicon.ico" 
+              alt="RealtyEaseAI Logo" 
+              className="w-12 h-12 mr-3"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+              }}
+            />
+            <div className="text-center">
+              <h1
+                className={`text-2xl md:text-3xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
+              >
+                RealtyEaseAI
+              </h1>
+              <p className="text-red-400 font-medium text-sm">
+                AI-Powered Real Estate Solutions
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Bar */}
+        <div className="relative z-10 flex justify-between items-center px-6 pb-4">
           <div className="flex items-center space-x-3">
             <button
               onClick={handleAddContact}
@@ -246,17 +271,6 @@ export default function VirtualCard() {
                 {isOnline ? "Available Now" : "Offline"}
               </span>
             </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center">
-              <span className="text-white text-xs font-bold">✓</span>
-            </div>
-            <span
-              className={`text-sm font-medium ${darkMode ? "text-white" : "text-gray-800"}`}
-            >
-              AVAILABLE NOW
-            </span>
           </div>
 
           <div className="flex items-center space-x-2">
@@ -385,26 +399,15 @@ export default function VirtualCard() {
 
           {/* Profile Info */}
           <div className="text-center mb-8 animate-slide-up">
-            <div className="flex items-center justify-center mb-4">
-              <img 
-                src="https://realtyeaseai.com/favicon.ico" 
-                alt="RealtyEaseAI Logo" 
-                className="w-16 h-16 mr-3"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }}
-              />
-              <div>
-                <h1
-                  className={`text-3xl md:text-4xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
-                >
-                  RealtyEaseAI
-                </h1>
-                <p className="text-red-400 font-medium text-lg">
-                  AI-Powered Real Estate Solutions
-                </p>
-              </div>
+            <div className="mb-4">
+              <h2
+                className={`text-3xl md:text-4xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
+              >
+                Kathy Tiburcio
+              </h2>
+              <p className="text-red-400 font-medium text-lg">
+                Founder & CEO
+              </p>
             </div>
             <p
               className={`mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}
@@ -433,24 +436,36 @@ export default function VirtualCard() {
             </div>
 
             {/* Contact Information */}
-            <div className={`backdrop-blur-sm rounded-xl p-4 max-w-lg mx-auto border mt-4 ${darkMode ? "bg-gray-800/20 border-gray-700/30" : "bg-white/60 border-gray-200/30"}`}>
-              <h3 className={`text-lg font-semibold mb-3 text-center ${darkMode ? "text-white" : "text-gray-900"}`}>
+            <div
+              className={`backdrop-blur-sm rounded-xl p-4 max-w-lg mx-auto border mt-4 ${darkMode ? "bg-gray-800/20 border-gray-700/30" : "bg-white/60 border-gray-200/30"}`}
+            >
+              <h3
+                className={`text-lg font-semibold mb-3 text-center ${darkMode ? "text-white" : "text-gray-900"}`}
+              >
                 Contact Us
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                <div
+                  className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                >
                   <Phone className="w-4 h-4 text-green-500" />
                   <span className="text-sm">+1 (555) 123-4567</span>
                 </div>
-                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                <div
+                  className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                >
                   <MessageSquare className="w-4 h-4 text-blue-500" />
                   <span className="text-sm">WhatsApp Available</span>
                 </div>
-                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                <div
+                  className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                >
                   <Globe className="w-4 h-4 text-red-500" />
                   <span className="text-sm">realtyeaseai.com</span>
                 </div>
-                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                <div
+                  className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}
+                >
                   <MessageCircle className="w-4 h-4 text-purple-500" />
                   <span className="text-sm">24/7 Support</span>
                 </div>
