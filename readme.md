@@ -90,4 +90,4 @@ The server setup includes:
 
 ## User Preferences
 
-Preferred communication style: Simple, everyday language.
+Preferred communication style: Simple, everyday language.# portfoliokathy
