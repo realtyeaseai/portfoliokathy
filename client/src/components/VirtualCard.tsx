@@ -249,13 +249,13 @@ export default function VirtualCard() {
           </div>
 
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center animate-bounce">
-              <span className="text-white text-xs font-bold">D</span>
+            <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-xs font-bold">✓</span>
             </div>
             <span
               className={`text-sm font-medium ${darkMode ? "text-white" : "text-gray-800"}`}
             >
-              DESIRED
+              AVAILABLE NOW
             </span>
           </div>
 
@@ -430,6 +430,31 @@ export default function VirtualCard() {
                 <span className="text-green-400"> Property Management</span>, or
                 <span className="text-amber-400"> Service Providers</span>
               </p>
+            </div>
+
+            {/* Contact Information */}
+            <div className={`backdrop-blur-sm rounded-xl p-4 max-w-lg mx-auto border mt-4 ${darkMode ? "bg-gray-800/20 border-gray-700/30" : "bg-white/60 border-gray-200/30"}`}>
+              <h3 className={`text-lg font-semibold mb-3 text-center ${darkMode ? "text-white" : "text-gray-900"}`}>
+                Contact Us
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                  <Phone className="w-4 h-4 text-green-500" />
+                  <span className="text-sm">+1 (555) 123-4567</span>
+                </div>
+                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                  <MessageSquare className="w-4 h-4 text-blue-500" />
+                  <span className="text-sm">WhatsApp Available</span>
+                </div>
+                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                  <Globe className="w-4 h-4 text-red-500" />
+                  <span className="text-sm">realtyeaseai.com</span>
+                </div>
+                <div className={`flex items-center space-x-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                  <MessageCircle className="w-4 h-4 text-purple-500" />
+                  <span className="text-sm">24/7 Support</span>
+                </div>
+              </div>
             </div>
           </div>
 
