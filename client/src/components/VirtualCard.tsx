@@ -578,14 +578,6 @@ export default function VirtualCard() {
             </button>
 
             <button
-              onClick={() => window.open("https://realtyeaseai.com/", "_blank")}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${darkMode ? "bg-gray-700 hover:bg-gray-600 text-gray-300" : "bg-gray-200 hover:bg-gray-300 text-gray-700"}`}
-            >
-              <Globe className="w-3 h-3" />
-              <span className="text-xs font-medium">Website</span>
-            </button>
-
-            <button
               onClick={() => window.open("https://meet.google.com", "_blank")}
               className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${darkMode ? "bg-gray-700 hover:bg-gray-600 text-gray-300" : "bg-gray-200 hover:bg-gray-300 text-gray-700"}`}
             >
