@@ -225,7 +225,7 @@ export default function VirtualCard() {
         </div>
 
         {/* Top Action Bar with Logo */}
-        <div className="relative z-10 flex justify-between items-center p-6">
+        <div className="relative z-10 flex justify-center items-center p-6">
           <div className="flex items-center space-x-4">
             {/* Logo and Company Name */}
             <div className="flex items-center">
