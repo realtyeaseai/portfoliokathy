@@ -2,18 +2,19 @@
 
 ## Overview
 
-This is a single-page virtual business card application built with React/TypeScript frontend and Express.js backend. The application serves as a minimal, elegant digital business card for RealtyEaseAI, featuring a centered video showcase, dynamic views counter, and interactive contact elements inspired by modern virtual card designs.
+This is a modern virtual business card application built with Next.js featuring server-side rendering, API routes, and a responsive design. The application serves as an elegant digital business card for RealtyEaseAI with Kathy Tiburcio as Founder & CEO, featuring a centered company logo, dynamic views counter, and comprehensive service showcases.
 
 ## System Architecture
 
-The project follows a monorepo structure with clear separation between client, server, and shared code:
+The project is now built as a Next.js full-stack application:
 
-- **Frontend**: React with TypeScript, using Vite as the build tool
-- **Backend**: Express.js server with TypeScript
-- **Database**: PostgreSQL with Drizzle ORM (configured but not fully implemented)
+- **Framework**: Next.js 15+ with App Router architecture
+- **Frontend**: React with TypeScript, server-side rendering capabilities
+- **Backend**: Next.js API Routes replacing Express.js server
+- **Database**: PostgreSQL with Drizzle ORM for views tracking
 - **UI Framework**: Tailwind CSS with shadcn/ui components
-- **State Management**: TanStack Query for server state management
-- **Routing**: Wouter for client-side routing
+- **State Management**: TanStack Query for client-side state management
+- **Deployment**: Optimized for Replit with autoscaling support
 
 ## Key Components
 
@@ -78,6 +79,11 @@ The server setup includes:
 
 ## Changelog
 
+- December 28, 2024: **Major Migration**: Converted entire project from React + Express to Next.js 15
+  - Implemented App Router architecture with server-side rendering
+  - Replaced Express.js routes with Next.js API routes
+  - Maintained all existing functionality including views counter and database integration
+  - Updated configuration for modern Next.js deployment
 - June 28, 2025: Updated branding to RealtyEaseAI with logo integration and website linking
 - June 28, 2025: Implemented dynamic views counter with PostgreSQL database integration
 - June 26, 2025: Initial setup
