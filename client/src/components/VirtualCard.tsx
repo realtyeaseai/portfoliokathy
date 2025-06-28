@@ -159,8 +159,8 @@ export default function VirtualCard() {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: "Kathy Tiburcio - Virtual Business Card",
-        text: "Check out my virtual business card",
+        title: "RealtyEaseAI - Virtual Business Card",
+        text: "Check out RealtyEaseAI's virtual business card - AI-Powered Real Estate Solutions",
         url: window.location.href,
       });
     } else {
@@ -173,7 +173,7 @@ export default function VirtualCard() {
   const handleQuickAction = (action: string) => {
     switch (action) {
       case "website":
-        window.open("https://realtyeaseai.com", "_blank");
+        window.open("https://realtyeaseai.com/", "_blank");
         break;
       case "phone":
         window.location.href = "tel:+15551234567";
@@ -385,18 +385,31 @@ export default function VirtualCard() {
 
           {/* Profile Info */}
           <div className="text-center mb-8 animate-slide-up">
-            <h1
-              className={`text-3xl md:text-4xl font-bold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}
-            >
-              Kathy Tiburcio
-            </h1>
-            <p className="text-red-400 font-medium text-lg mb-1">
-              Founder & CEO
-            </p>
+            <div className="flex items-center justify-center mb-4">
+              <img 
+                src="https://realtyeaseai.com/favicon.ico" 
+                alt="RealtyEaseAI Logo" 
+                className="w-16 h-16 mr-3"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+              <div>
+                <h1
+                  className={`text-3xl md:text-4xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}
+                >
+                  RealtyEaseAI
+                </h1>
+                <p className="text-red-400 font-medium text-lg">
+                  AI-Powered Real Estate Solutions
+                </p>
+              </div>
+            </div>
             <p
               className={`mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}
             >
-              RealtyEaseAI
+              Streamlining Property Management & Real Estate Operations
             </p>
 
             {/* Service Description */}
@@ -525,11 +538,11 @@ export default function VirtualCard() {
             </button>
 
             <button
-              onClick={() => window.open("#", "_blank")}
+              onClick={() => window.open("https://realtyeaseai.com/", "_blank")}
               className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 transform hover:scale-105 ${darkMode ? "bg-gray-700 hover:bg-gray-600 text-gray-300" : "bg-gray-200 hover:bg-gray-300 text-gray-700"}`}
             >
-              <Download className="w-3 h-3" />
-              <span className="text-xs font-medium">Resources</span>
+              <Globe className="w-3 h-3" />
+              <span className="text-xs font-medium">Website</span>
             </button>
 
             <button

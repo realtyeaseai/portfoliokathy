@@ -1,8 +1,8 @@
-# Virtual Business Card Application
+# RealtyEaseAI Virtual Business Card Application
 
 ## Overview
 
-This is a single-page virtual business card application built with React/TypeScript frontend and Express.js backend. The application serves as a minimal, elegant digital business card for the founder/CEO, featuring a centered video showcase and interactive contact elements inspired by modern virtual card designs.
+This is a single-page virtual business card application built with React/TypeScript frontend and Express.js backend. The application serves as a minimal, elegant digital business card for RealtyEaseAI, featuring a centered video showcase, dynamic views counter, and interactive contact elements inspired by modern virtual card designs.
 
 ## System Architecture
 
@@ -30,10 +30,11 @@ The project follows a monorepo structure with clear separation between client, s
 - **Development Setup**: Hot reload with tsx for TypeScript execution
 
 ### Database Schema
-Currently defines a basic user table structure:
+Currently defines database tables for:
 - Users table with id, username, and password fields
+- Site views table with totalViews counter and timestamps
 - Zod validation schemas for type safety
-- Prepared for PostgreSQL deployment
+- Active PostgreSQL deployment with dynamic views tracking
 
 ## Data Flow
 
@@ -77,8 +78,9 @@ The server setup includes:
 
 ## Changelog
 
-Changelog:
-- June 26, 2025. Initial setup
+- June 28, 2025: Updated branding to RealtyEaseAI with logo integration and website linking
+- June 28, 2025: Implemented dynamic views counter with PostgreSQL database integration
+- June 26, 2025: Initial setup
 
 ## User Preferences
 
