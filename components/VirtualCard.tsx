@@ -75,21 +75,21 @@ export default function VirtualCard() {
     {
       icon: <TrendingUp className="w-8 h-8" />,
       title: "Web Development",
-      description: "Custom websites and applications built to perfection"
+      description: "Custom websites and applications built to perfection + AI Solutions"
     },
     {
       icon: <Users className="w-8 h-8" />,
-      title: "Social Media",
-      description: "Engaging content and community management"
+      title: "Social Media Management",
+      description: "Managing and growing your social media presence effectively"
     },
     {
       icon: <Briefcase className="w-8 h-8" />,
-      title: "Property Management",
-      description: "Streamlined operations for real estate professionals"
+      title: "Digital Marketing",
+      description: "SEO, SEM, and online advertising strategies, Running effective campaigns"
     },
     {
       icon: <Target className="w-8 h-8" />,
-      title: "General Services",
+      title: "Admin Support",
       description: "Administrative support and business operations"
     }
   ];
