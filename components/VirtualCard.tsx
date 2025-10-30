@@ -197,7 +197,7 @@ END:VCARD`.trim();
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="relative">
                 <div>
-                 <Image src="/Kathy.jpg" alt="Kathy Tiburcio" width={192} height={192} className="rounded-2xl object-cover" />
+                 <Image src="/kathy_poster.png" alt="Kathy Tiburcio" width={192} height={192} className="rounded-2xl object-cover" />
                 </div>
               </div>
               
